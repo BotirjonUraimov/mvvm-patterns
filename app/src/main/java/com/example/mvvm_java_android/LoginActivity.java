@@ -1,5 +1,6 @@
 package com.example.mvvm_java_android;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,7 +17,7 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
     private LoginContract.ActionListener userActionListener;
 
     @Override
-    ActivityLoginBinding inflateViewBinding(LayoutInflater inflater) {
+    public ActivityLoginBinding inflateViewBinding(LayoutInflater inflater) {
         return ActivityLoginBinding.inflate(inflater);
     }
 
@@ -44,6 +45,8 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
 
     @Override
     public void moveToMainPage() {
+        Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
 
     }
 
@@ -52,12 +55,13 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
 
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
 
-
-
     }
 
     @Override
     public void setValidEmail(boolean isValidEmail) {
         binding.icVerifiedEmail.setVisibility(isValidEmail? View.VISIBLE : View.INVISIBLE);
     }
+
+
+
 }

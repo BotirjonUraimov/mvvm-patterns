@@ -1,20 +1,35 @@
 package com.example.mvvm_java_android;
 
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 
+import com.example.mvvm_java_android.util.PreferenceManager;
+import com.example.mvvm_java_android.util.RequestCallback;
+
+import retrofit2.Call;
+import retrofit2.Response;
+
 public class LoginPresenter  implements LoginContract.ActionListener{
 
     public String TAG = "TEST";
+
+    private PreferenceManager preferenceManager;
 
 
 
     private LoginContract.View mLoginView;
 
+    private  MainApi mainApi;
+
+
+
     public LoginPresenter(LoginContract.View mLoginView) {
         this.mLoginView = mLoginView;
+        mainApi = ApiService.provideApi(MainApi.class, (LoginActivity) mLoginView);
+        preferenceManager = new PreferenceManager((LoginActivity) mLoginView);
     }
 
 
@@ -25,6 +40,41 @@ public class LoginPresenter  implements LoginContract.ActionListener{
             Log.d(TAG, "login: Email is not valid");
             return;
         };
+
+        User user = new User(email, password);
+        mainApi.login(user).enqueue(new RequestCallback<User>() {
+            @Override
+            protected void onResponseSuccess(Call<User> call, Response<User> response) {
+
+                User authUser = response.body();
+
+
+                    preferenceManager.setValue("isLogin", true);
+                    preferenceManager.setValue("access_token", authUser.getAccess_token());
+                    preferenceManager.setValue("id", authUser.getId());
+                    preferenceManager.setValue("email", authUser.getEmail());
+                    preferenceManager.setValue("first_name", authUser.getFirst_name());
+                    preferenceManager.setValue("last_name", authUser.getLast_name());
+                    preferenceManager.setValue("phone_number", authUser.getPhone_number());
+                    preferenceManager.setValue("address", authUser.getAddress());
+                    preferenceManager.setValue("refresh_token", authUser.getRefresh_token());
+                    preferenceManager.setValue("user", authUser);
+
+                    mLoginView.moveToMainPage();
+
+
+
+
+
+
+            }
+
+            @Override
+            protected void onResponseFailed(Call<User> call, Throwable t) {
+
+            }
+        });
+
 
 
     }

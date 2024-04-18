@@ -2,9 +2,11 @@ package com.example.mvvm_java_android;
 
 import android.text.TextWatcher;
 
+import com.example.mvvm_java_android.base.BaseView;
+
 public class LoginContract {
 
-    interface View {
+    interface View  extends BaseView {
 
         void  moveToMainPage ();
         void  showErrorMessage(String message);
