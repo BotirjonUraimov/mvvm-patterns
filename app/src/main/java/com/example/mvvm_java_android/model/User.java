@@ -1,4 +1,4 @@
-package com.example.mvvm_java_android;
+package com.example.mvvm_java_android.model;
 
 import com.google.gson.annotations.SerializedName;
 

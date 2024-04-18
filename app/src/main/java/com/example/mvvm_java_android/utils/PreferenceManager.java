@@ -1,10 +1,10 @@
-package com.example.mvvm_java_android.util;
+package com.example.mvvm_java_android.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.example.mvvm_java_android.BuildConfig;
-import com.example.mvvm_java_android.User;
+import com.example.mvvm_java_android.model.User;
 import com.google.gson.Gson;
 
 public class PreferenceManager implements PreferenceHelper {

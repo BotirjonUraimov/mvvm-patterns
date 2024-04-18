@@ -1,4 +1,4 @@
-package com.example.mvvm_java_android.util;
+package com.example.mvvm_java_android.utils;
 
 public interface PreferenceHelper {
     void setValue(String key, Object value);

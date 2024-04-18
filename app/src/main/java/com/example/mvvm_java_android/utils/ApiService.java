@@ -1,8 +1,9 @@
-package com.example.mvvm_java_android;
+package com.example.mvvm_java_android.utils;
 
 import android.content.Context;
 
-import com.example.mvvm_java_android.util.PreferenceManager;
+import com.example.mvvm_java_android.BuildConfig;
+import com.example.mvvm_java_android.model.User;
 
 import java.io.IOException;
 

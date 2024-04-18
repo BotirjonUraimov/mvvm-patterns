@@ -1,4 +1,4 @@
-package com.example.mvvm_java_android.util;
+package com.example.mvvm_java_android.utils;
 
 import retrofit2.Call;
 import retrofit2.Callback;

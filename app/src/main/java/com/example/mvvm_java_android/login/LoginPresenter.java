@@ -1,13 +1,14 @@
-package com.example.mvvm_java_android;
+package com.example.mvvm_java_android.login;
 
-import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.View;
 
-import com.example.mvvm_java_android.util.PreferenceManager;
-import com.example.mvvm_java_android.util.RequestCallback;
+import com.example.mvvm_java_android.model.User;
+import com.example.mvvm_java_android.utils.ApiService;
+import com.example.mvvm_java_android.utils.MainApi;
+import com.example.mvvm_java_android.utils.PreferenceManager;
+import com.example.mvvm_java_android.utils.RequestCallback;
 
 import retrofit2.Call;
 import retrofit2.Response;
@@ -22,7 +23,7 @@ public class LoginPresenter  implements LoginContract.ActionListener{
 
     private LoginContract.View mLoginView;
 
-    private  MainApi mainApi;
+    private MainApi mainApi;
 
 
 
