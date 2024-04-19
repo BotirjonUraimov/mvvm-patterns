@@ -13,7 +13,7 @@ public abstract class BaseActivity <VB extends ViewBinding>  extends AppCompatAc
     public VB binding;
 
 
-    public abstract VB inflateViewBinding(LayoutInflater inflater);
+    public abstract VB  inflateViewBinding(LayoutInflater inflater);
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

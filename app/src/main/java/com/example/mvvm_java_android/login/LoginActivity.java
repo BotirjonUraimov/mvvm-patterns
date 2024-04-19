@@ -14,7 +14,6 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
 
 
     private LoginContract.ActionListener userActionListener;
-
     @Override
     public ActivityLoginBinding inflateViewBinding(LayoutInflater inflater) {
         return ActivityLoginBinding.inflate(inflater);
@@ -23,37 +22,21 @@ public class LoginActivity extends BaseActivity<ActivityLoginBinding> implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         userActionListener = new LoginPresenter(this);
-
-        binding.loginBtn.setOnClickListener(new View.OnClickListener() {
-
-            @Override
-            public void onClick(View v) {
-
-                String email = binding.emailEditText.getText().toString();
-                String password = binding.passwordEdittext.getText().toString();
-                userActionListener.login(email, password);
-
-            }
-        });
-
+        binding.loginBtn.setOnClickListener(userActionListener.loginBtnClick());
+        binding.passwordEdittext.addTextChangedListener(userActionListener.registerPasswordWatcher());
         binding.emailEditText.addTextChangedListener(userActionListener.registerTextWatcher());
-
     }
 
     @Override
     public void moveToMainPage() {
         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
         startActivity(intent);
-
     }
 
     @Override
     public void showErrorMessage(String message) {
-
         Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-
     }
 
     @Override

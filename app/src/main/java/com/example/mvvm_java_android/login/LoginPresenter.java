@@ -3,6 +3,7 @@ package com.example.mvvm_java_android.login;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 
 import com.example.mvvm_java_android.model.User;
 import com.example.mvvm_java_android.utils.ApiService;
@@ -16,23 +17,17 @@ import retrofit2.Response;
 public class LoginPresenter  implements LoginContract.ActionListener{
 
     public String TAG = "TEST";
-
+    private String email;
+    private String password;
     private PreferenceManager preferenceManager;
-
-
-
     private LoginContract.View mLoginView;
-
     private MainApi mainApi;
-
-
 
     public LoginPresenter(LoginContract.View mLoginView) {
         this.mLoginView = mLoginView;
         mainApi = ApiService.provideApi(MainApi.class, (LoginActivity) mLoginView);
         preferenceManager = new PreferenceManager((LoginActivity) mLoginView);
     }
-
 
     @Override
     public void login(String email, String password) {
@@ -62,12 +57,6 @@ public class LoginPresenter  implements LoginContract.ActionListener{
                     preferenceManager.setValue("user", authUser);
 
                     mLoginView.moveToMainPage();
-
-
-
-
-
-
             }
 
             @Override
@@ -78,6 +67,38 @@ public class LoginPresenter  implements LoginContract.ActionListener{
 
 
 
+    }
+
+    @Override
+    public View.OnClickListener loginBtnClick() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                login(email, password);
+
+            }
+        };
+    }
+
+    @Override
+    public TextWatcher registerPasswordWatcher() {
+        return new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                password = s.toString();
+
+            }
+        };
     }
 
     @Override
@@ -96,26 +117,10 @@ public class LoginPresenter  implements LoginContract.ActionListener{
             @Override
             public void afterTextChanged(Editable s) {
 
-                String email = s.toString();
+                email = s.toString();
                 Log.d("EditText", email);
                 boolean isValidEmail = isEmailValid(email);
                 mLoginView.setValidEmail(isValidEmail);
-
-
-//                if (email.contains("@") && email.indexOf('@') != 0) {
-//                    String tail = email.substring(email.indexOf('@'));
-//                    if (tail.contains(".")
-//                            && tail.indexOf('.') != 1
-//                            && email.lastIndexOf('.') != (email.length() - 1)) {
-//                        binding.icVerifiedEmail.setVisibility(View.VISIBLE);
-//                    } else {
-//                        binding.icVerifiedEmail.setVisibility(View.INVISIBLE);
-//                    }
-//                } else {
-//                    binding.icVerifiedEmail.setVisibility(View.INVISIBLE);
-//                }
-
-
 
             }
         };
